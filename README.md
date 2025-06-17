@@ -1,0 +1,2 @@
+# Extraction-And-Verification-Of-Information-From-Semi-Categorized-Data-
+An OCR project focuses on developing a system to extract, structure, and verify information from semi-categorized data sources. Semi-categorized data refers to datasets that contain partially organized information—such as spreadsheets, forms, or loosely structured text—where some data fields are defined but others are unstructured or inconsistent.
