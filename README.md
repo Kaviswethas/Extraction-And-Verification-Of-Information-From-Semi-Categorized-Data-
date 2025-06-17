@@ -61,7 +61,7 @@ Here are some common applications and domains where OCR is used:
 # 5.Project Execution Steps
 <a name="execute"></a>
 
-1.	Document Upload via Web Portal: 
+1.	Document Upload via Web Portal:
 Problem:  Many candidates submit their biodata and documents manually, which can lead to missing or incorrectly formatted files. Additionally, different formats (PDF, JPEG, PNG) can create challenges in handling and processing documents. 
 Solution: The system provides an easy-to-use web portal where candidates can upload their biodata and documents in multiple formats. It ensures all required documents are uploaded correctly before submission, preventing errors at an early stage.
 
@@ -85,7 +85,7 @@ Solution: The system provides instant notifications if any mismatch or issue is 
 Problem: Manually stored documents can be lost, mismanaged, or accessed by unauthorized users, leading to security risks. 
 Solution:  After verification, all documents and biodata are securely stored in a structured database with access control. This ensures that only authorized personnel can access the data, maintaining security and privacy.
 
-# Future Scope
+# 6.Future Scope
 <a name="future"></a>
 In the future, the system can be improved in several ways to make it more powerful and user-friendly. One important enhancement is the addition of biometric authentication, such as facial recognition or fingerprint scanning, which can provide an extra layer of security during the verification process. The platform could also include an AI-powered chatbot to guide users stepby-step, answer their queries instantly, and make the user experience more interactive. Support for voice-based input and regional language interaction would allow users to communicate with the system in their own language and style, making it more inclusive. Another improvement could be the integration of blockchain technology to store verified documents securely and ensure that they cannot be altered or tampered with. The system may also be linked with external databases such as university records or government ID services to allow automatic real-time cross-verification of submitted information. As more data is collected over time, machine learning models can be trained further to improve accuracy in reading and understanding various document types. A mobile application version of the platform could also be introduced to help candidates complete the entire process on their smartphones. These enhancements would make the system even more efficient, secure, accessible, and suitable for modern recruitment needs across different sectors.   
 
