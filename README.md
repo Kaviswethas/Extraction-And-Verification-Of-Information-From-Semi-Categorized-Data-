@@ -7,5 +7,9 @@ https://github.com/user-attachments/assets/b9eab526-7c9c-4eb0-89f7-4b9463f9541b
 
 
 # Overview
-1. [What is OCR]
+1. [What is OCR](#ocr)
 2. [Introduction to Project]
+
+# What is OCR
+
+<a name="ocr"></a>
