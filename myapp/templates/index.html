@@ -1,0 +1,364 @@
+{% extends "user_base.html" %}
+
+{% block title %}
+RAC APPLICATION FORM
+{% endblock %}
+{% block mymessage %}
+
+<style>
+    .status-icon {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .status-icon.green { color: green; }
+    .status-icon.red { color: red; }
+    .back-arrow {
+        font-size: 30px;
+        padding-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    .back-arrow span {
+        border: 1px solid black;
+        padding: 1px 8px;
+    }
+
+    .back-arrow span a {
+        text-decoration: none;
+        color: black;
+    }
+
+    h3, #languageSelector{
+        display: inline-block;
+    }
+
+    #languageSelector{
+        float: right;
+        font-size: 20px;
+    }
+    option{
+        background-color: black;
+        color: white;
+    }
+</style>
+
+    <div class="back-arrow"><span><a href="{% url 'user_dashboard' %}">&#129032;</a></span></div>
+
+    <div class="container">
+        <!-- Personal Details -->
+        <div class="form-section">
+            <h2>Personal Details (as in aadhaar card)</h2>
+            <div class="form-group">
+                <label>Name of the Candidate:</label>
+                <input type="text" name="candidate_name">
+                <span id="candidate_name_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Father's/Guardian's Name:</label>
+                <input type="text" name="father_name">
+                <span id="father_name_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Mother's Name:</label>
+                <input type="text" name="mother_name">
+                <span id="mother_name_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Date of Birth:</label>
+                <input type="date" name="dob">
+                <span id="dob_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <select name="gender">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <span id="gender_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Email Address:</label>
+                <input type="email" name="email">
+                <span id="email_status" class="status-icon"></span>
+            </div>
+            
+            <div class="form-group">
+                <label>Contact Number:</label>
+                <input type="text" name="contact">
+                <span id="contact_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Religion:</label>
+                <input type="text" name="religion">
+                <span id="religion_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Nationality:</label>
+                <input type="text" name="nationality">
+                <span id="nationality_status" class="status-icon"></span>
+            </div>
+        </div>
+
+        <!-- Address Details -->
+        <div class="form-section">
+            <h2>Address Details</h2>
+            <div class="form-group">
+                <label>Present Address:</label>
+                <input type="text" name="present_address">
+                <span id="present_address_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Permanent Address:</label>
+                <input type="text" name="permanent_address">
+                <span id="permanent_address_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>City:</label>
+                <input type="text" name="city">
+                <span id="city_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>State:</label>
+                <input type="text" name="state">
+                <span id="state_status" class="status-icon"></span>
+            </div>
+        </div>
+
+        <!-- Educational Qualification -->
+        <div class="form-section">
+            <h2>Educational Qualification</h2>
+            <div class="form-group">
+                <label>SSLC / 10th:</label>
+                <input type="text" name="sslc">
+                <span id="sslc_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Board:</label>
+                <input type="text" name="board">
+                <span id="board_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Year of Passing:</label>
+                <input type="text" name="year_passing">
+                <span id="year_passing_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Percentage / CGPA:</label>
+                <input type="text" name="percentage">
+                <span id="percentage_status" class="status-icon"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label>Upload Certificates:</label>
+                <input type="file" name="certificates">
+            </div>
+        </div>
+
+        <!-- Identity -->
+        <div class="form-section">
+            <h2>Identity</h2>
+            <div class="form-group">
+                <label>Aadhaar Number:</label>
+                <input type="text" name="aadhaar">
+                <span id="aadhaar_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Upload Aadhaar:</label>
+                <input type="file" name="aadhaar_upload">
+            </div>
+        </div>
+
+        <!-- GATE Details -->
+        <div class="form-section">
+            <h2>GATE Details</h2>
+            <div class="form-group">
+                <label>GATE Registration Number:</label>
+                <input type="text" name="gate_reg">
+                <span id="gate_reg_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>YEAR:</label>
+                <input type="text" name="gate_year">
+                <span id="gate_year_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>SCORE:</label>
+                <input type="text" name="gate_score">
+                <span id="gate_score_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Upload Gate SCORE CARD:</label>
+                <input type="file" name="gate_score_upload">
+            </div>
+        </div>
+
+        <!-- PWD Category Details -->
+        <div class="form-section">
+        <h2>PWD Category Details</h2>
+        <div class="form-group">
+            <label>Are you a person with disability (PWD)?</label>
+            <div class="options">
+                <label><input type="radio" name="pwd" value="yes" onclick="toggleDisabilityDetails(true)"> Yes</label>
+                <label><input type="radio" name="pwd" value="no" onclick="toggleDisabilityDetails(false)"> No</label>
+                <span id="pwd_status" class="status-icon"></span>
+            </div>
+        </div>
+
+        <!-- Disability-specific fields, hidden by default -->
+        <div class="disability-details" id="disabilityDetails">
+            <div class="form-group">
+                <label>If yes, specify the type of disability:</label>
+                <input type="text" name="disability_type">
+                <span id="disability_type_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Disability Certificate Number:</label>
+                <input type="text" name="disability_cert_no">
+                <span id="disability_cert_no_status" class="status-icon"></span>
+            </div>
+            <div class="form-group">
+                <label>Upload PWD Certificates:</label>
+                <input type="file" name="pwd_cert_upload">
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="buttons-div">
+        <button class="btn-verify" onclick="verifyForm()">Verify</button>
+        <button class="btn-reset" onclick="resetForm()">Reset</button>
+        <button class="btn-submit">Submit</button>
+    </div>
+
+    <!-- Help Links -->
+    <div class="help-links">
+        <a href="{% url 'contact' %}">Facing Issues?</a>
+        <a href="{% url 'contact' %}">Need Help?</a>
+    </div>
+</div>
+<script>
+    function verifyForm() {
+    const formData = new FormData();
+    
+    // Append all input fields and file data to formData
+    const inputs = document.querySelectorAll('input[type="text"], input[type="date"], input[type="email"], select');
+    inputs.forEach(input => {
+        formData.append(input.name, input.value);
+    });
+    const files = document.querySelectorAll('input[type="file"]');
+    files.forEach(fileInput => {
+        if (fileInput.files[0]) {
+            formData.append(fileInput.name, fileInput.files[0]);
+        }
+    });
+
+    // Send AJAX request to verify form
+    fetch("{% url 'verify_form' %}", {
+        method: "POST",
+        body: formData,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update the status icons based on the response
+        for (const field in data) {
+            const statusElement = document.getElementById(`${field}_status`);
+            if (statusElement) {
+                if (data[field]) {
+                    statusElement.textContent = '✔'; // Green check icon for matched
+                    statusElement.classList.remove('red');
+                    statusElement.classList.add('green');
+                } else {
+                    statusElement.textContent = '✘'; // Red cross icon for no match
+                    statusElement.classList.remove('green');
+                    statusElement.classList.add('red');
+                }
+            }
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error verifying the form.");
+    });
+}
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleDisabilityDetails();
+    });
+
+    function toggleDisabilityDetails() {
+        const yesSelected = document.querySelector('input[name="pwd"][value="yes"]').checked;
+        const disabilityDetails = document.getElementById('disabilityDetails');
+        disabilityDetails.style.display = yesSelected ? 'block' : 'none';
+    }
+
+    function resetForm() {
+    // Reset all input fields
+    const form = document.querySelector('.container');
+    
+    // Reset text, file, and radio inputs
+    form.querySelectorAll('input[type="text"], input[type="file"], input[type="radio"], input[type="date"], input[type="email"]').forEach(input => {
+        if (input.type === "radio") {
+            input.checked = false;
+        } else {
+            input.value = ""; // Clears text, file, and date inputs
+        }
+    });
+
+    // Reset dropdowns (select elements)
+    form.querySelectorAll('select').forEach(select => {
+        select.selectedIndex = 0; // Resets to the first option
+    });
+
+    // Hide disability details section on reset
+    toggleDisabilityDetails();
+
+    // Clear status icons
+    const statusIcons = document.querySelectorAll('.status-icon');
+    statusIcons.forEach(icon => {
+        icon.textContent = ""; // Remove the tick or cross icon
+        icon.classList.remove("green", "red"); // Remove any color classes
+    });
+}
+</script>
+
+<script>
+    document.querySelector('.btn-submit').addEventListener('click', () => {
+    const formData = new FormData();
+
+    // Collect all form data
+    document.querySelectorAll('input, select').forEach(input => {
+        if (input.type === 'file' && input.files[0]) {
+            formData.append(input.name, input.files[0]);
+        } else {
+            formData.append(input.name, input.value);
+        }
+    });
+
+    // Send data to backend
+    fetch("{% url 'submit_application_form' %}", {
+        method: "POST",
+        body: formData,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            // Optionally, reset the form
+            resetForm();
+            window.location.href="{% url 'success' %}"
+        } else {
+            alert(data.error || "Failed to submit application form.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+</script>
+  {% endblock %}

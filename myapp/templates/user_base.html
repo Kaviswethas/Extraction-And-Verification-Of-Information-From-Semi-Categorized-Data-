@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'style.css' %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+<!-- <script type="text/javascript" src="{% static 'script.js' %}"></script> -->
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    .login-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 2%;
+    }
+
+    .about-rac {
+        flex: 1 1 60%;
+        padding: 1%;
+    }
+
+    .login-div {
+        flex: 1 1 35%;
+        padding: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-div h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-div {
+        width: 100%;
+    }
+
+    .form-div-fields {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .form-div-fields label {
+        width: 100%;
+        margin-bottom: 5px;
+        text-align: left;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .form-div-fields input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-div-fields button {
+        width: 20%;
+        font-size: 16px;
+        padding: 10px;
+        background-color: rgb(0, 170, 255);
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .form-div-fields button:hover {
+        background-color: rgb(0, 140, 220);
+    }
+
+    /* Forgot Password and Register Links */
+    .form-div-fields.links {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .form-div-fields.links a {
+        text-decoration: none;
+        color: rgb(0, 170, 255);
+        padding: 5px 10px;
+    }
+
+    .form-div-fields.links a:hover {
+        text-decoration: underline;
+    }
+
+    .forgot-password-btn a, .register-btn a{
+        text-decoration: none;
+        font-size: 16px;
+        color: black;
+    }
+
+    label{
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .login-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-rac,
+        .login-div {
+            width: 100%;
+            flex: none;
+        }
+
+        .about-rac {
+            margin-bottom: 20px;
+        }
+
+        .form-div-fields input,
+        .form-div-fields button {
+            max-width: 100%;
+        }
+
+        .form-div-fields.links {
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+    h3, #languageSelector{
+        display: inline-block;
+    }
+
+    #languageSelector{
+        float: right;
+        font-size: 20px;
+    }
+    option{
+        background-color: black;
+        color: white;
+    }
+    .bot{
+        float: right;
+    }
+</style>
+
+<body>
+    <div class="header-div">
+        <div class="left-group">
+            <img src="https://rac.gov.in/images/rac_logo_2019_sm.png" alt="RAC Logo" width="100px">
+            <img src="https://rac.gov.in/images/siteTitle_n.png" alt="RAC Title" width="300px"> 
+        </div>
+        <div class="center">
+            <img src="https://rac.gov.in/images/india_goi/Emblem_of_India.png" alt="Emblem of India" width="60px">
+        </div>
+        <div class="right">
+            <img src="https://rac.gov.in/images/amrit75-logo.png" alt="Amrit 75 Logo" width="150px">
+        </div>
+    </div>
+
+    <div class="title-bar">
+        <h3>RECRUITMENT ASSESSMENT CENTRE</h3>
+        <select id="languageSelector" onchange="translatePage(this.value)">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="bn">Bengali</option>
+            <option value="te">Telugu</option>
+            <option value="mr">Marathi</option>
+            <option value="ta">Tamil</option>
+            <option value="ur">Urdu</option>
+            <option value="gu">Gujarati</option>
+            <option value="ml">Malayalam</option>
+            <option value="kn">Kannada</option>
+            <option value="or">Odia</option>
+            <option value="pa">Punjabi</option>
+            <option value="as">Assamese</option>
+            <option value="mai">Maithili</option>
+            <option value="sat">Santali</option>
+            <option value="ks">Kashmiri</option>
+            <option value="ne">Nepali</option>
+            <option value="kok">Konkani</option>
+            <option value="sd">Sindhi</option>
+            <option value="doi">Dogri</option>
+            <option value="mni">Manipuri</option>
+            <option value="sa">Sanskrit</option>
+        </select>
+    </div>
+
+    {% block mymessage %}
+
+    {% endblock %}
+
+    <div class="bot-div">
+        <div class="bot" id="botButton" onclick="openChatBot()">
+            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/chat-bot-7229459-5862312.png" alt="bot-image" width="100px">
+        </div>
+    </div>
+    
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <span><b>RACBOT</b></span>
+            <button class="close-btn" onclick="closeChatBot()">X</button>
+        </div>
+        <div class="chatbot-content" id="chatContent">
+            <!-- Default message -->
+            <div class="message bot-message">Hi, how can I help you?</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" autofocus placeholder="Type your message here..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <style>
+        .bot-div {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    
+        .chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px; /* Adjusted for smaller screens */
+            z-index: 2000;
+            width: 400px;
+            height: 60%;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+        }
+    
+        .chatbot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+    
+        .chatbot-content {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background: #f9f9f9;
+            border-radius: 0 0 10px 10px;
+        }
+    
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+    
+        .chatbot-input button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .chatbot-input button:hover {
+            background: #0056b3;
+        }
+    
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+    
+        .bot-message {
+            align-self: flex-start;
+            background: #007BFF;
+            color: white;
+        }
+    
+        .user-message {
+            align-self: flex-end;
+            background: #007BFF;
+            color: white;
+            border: 1px solid #ccc;
+        }
+    
+        .close-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        .close-btn:hover {
+            background: white;
+            color: #007BFF;
+        }
+    
+        /* Media Queries for responsiveness */
+        @media only screen and (max-width: 768px) {
+            .chatbot-container {
+                width: 90%; /* Make the chatbot take up most of the screen on small devices */
+                height: 50%; /* Reduce height on smaller devices */
+                bottom: 80px; /* Slightly adjust position */
+                right: 10px; /* Adjust for mobile */
+            }
+    
+            .chatbot-header {
+                font-size: 16px; /* Slightly smaller font size for header */
+            }
+    
+            .chatbot-content {
+                font-size: 13px; /* Adjust font size in content */
+            }
+    
+            .chatbot-input input {
+                font-size: 13px; /* Smaller font size for mobile input */
+            }
+    
+            .chatbot-input button {
+                font-size: 13px; /* Smaller button text */
+                padding: 8px 16px; /* Smaller button padding */
+            }
+    
+            .message {
+                font-size: 12px; /* Smaller font for messages */
+                max-width: 90%; /* Make messages take up more width */
+            }
+    
+            .close-btn {
+                font-size: 18px; /* Smaller close button */
+                padding: 4px 8px; /* Smaller padding for close button */
+            }
+        }
+    
+        @media only screen and (max-width: 480px) {
+            .chatbot-container {
+                width: 100%; /* Full width on very small devices */
+                height: 60%; /* Keep the height for mobile */
+                bottom: 60px; /* Adjust position */
+                right: 0; /* Align with the screen edges */
+            }
+    
+            .chatbot-header {
+                font-size: 14px; /* Smaller font size for header */
+                padding: 8px; /* Less padding for small screens */
+            }
+    
+            .chatbot-content {
+                font-size: 12px; /* Adjust font size for content */
+            }
+    
+            .chatbot-input input {
+                font-size: 12px; /* Smaller font size */
+            }
+    
+            .chatbot-input button {
+                font-size: 12px; /* Smaller button */
+            }
+    
+            .message {
+                font-size: 11px; /* Smaller font size for messages */
+                max-width: 95%; /* Even smaller message width */
+            }
+    
+            .close-btn {
+                font-size: 16px; /* Smaller close button */
+                padding: 3px 6px; /* Smaller padding */
+            }
+        }
+    </style>    
+    
+    <script>
+        function openChatBot() {
+            const chatbotContainer = document.getElementById("chatbotContainer");
+            chatbotContainer.style.display = "flex";
+        }
+
+        function closeChatBot() {
+            const chatbotContainer = document.getElementById("chatbotContainer");
+            chatbotContainer.style.display = "none";
+        }
+
+//         function sendMessage() {
+//             const chatInput = document.getElementById("chatInput");
+//             const chatContent = document.getElementById("chatContent");
+//             const userMessageText = chatInput.value.trim();
+
+//             if (userMessageText) {
+//                 // Append the user's message
+//                 const userMessage = document.createElement("div");
+//                 userMessage.className = "message user-message";
+//                 userMessage.textContent = userMessageText;
+//                 chatContent.appendChild(userMessage);
+
+//                 // Simulate a bot response
+//                 setTimeout(() => {
+//                     const botMessage = document.createElement("div");
+//                     botMessage.className = "message bot-message";
+//                     botMessage.textContent = "Thank you for your message. Let me help you with that.";
+//                     chatContent.appendChild(botMessage);
+
+//                     // Scroll to the bottom
+//                     chatContent.scrollTop = chatContent.scrollHeight;
+//                 }, 1000);
+
+//                 // Clear the input
+//                 chatInput.value = "";
+//                 chatContent.scrollTop = chatContent.scrollHeight;
+//             }
+//         }
+//         // Add event listener for the Enter key
+// document.getElementById('messageInput').addEventListener('keydown', function(event) {
+//     if (event.key === 'Enter') {
+//         event.preventDefault(); // Prevent the default behavior (optional)
+//         sendMessage();
+//     }
+// });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function sendMessage() {
+    let user_input = $("#chatInput").val();
+
+    // Ensure there's input to send
+    if (user_input.trim() !== "") {
+        $.ajax({
+            url: "/chat/", // Endpoint to send data
+            type: "POST",
+            data: {
+                'user_input': user_input,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                let bot_response = response.response;
+                // Append user input and bot response to the chat window
+                $("#chatContent").append(`<div class="message user-message"><p>${user_input}</p></div>`);
+                $("#chatContent").append(`<div class="message bot-message"><p>${bot_response}</p></div>`);
+                $("#chatContent").scrollTop($("#chatContent")[0].scrollHeight);  // Scroll to bottom
+                $("#chatInput").val('');  // Clear input field
+            },
+            error: function(xhr, status, error) {
+                console.error("Error sending message:", error);
+            }
+        });
+    }
+}
+    </script>
+
+    <script>
+        // Function to fetch and apply translation
+        function translatePage(targetLanguage) {
+          // Get all elements in the document that contain text
+          const elements = document.body.getElementsByTagName('*');
+          
+          // Create an array to store the text content of each element
+          const elementsToTranslate = [];
+    
+          // Loop through all elements and capture their text content
+          Array.from(elements).forEach(element => {
+            // Skip translation for the select element with id 'languageSelector'
+            if (element.id !== 'languageSelector' && element.id !== 'chatbot-container' && element.children.length === 0 && element.textContent.trim() !== '') {
+              elementsToTranslate.push(element);
+            }
+          });
+    
+          // Iterate through each element and translate its text
+          elementsToTranslate.forEach(element => {
+            const originalText = element.textContent.trim();
+            
+            // Fetch translation from Google Translate API
+            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(originalText)}`)
+              .then(response => response.json())
+              .then(data => {
+                // Update the element's text with the translated text
+                element.textContent = data[0][0][0];
+              })
+              .catch(err => console.error('Translation error:', err));
+          });
+        }
+    
+        // Initialize the page with the default language (English)
+        document.addEventListener('DOMContentLoaded', () => {
+          translatePage('en');
+        });
+      </script>
+</body>
+</html>

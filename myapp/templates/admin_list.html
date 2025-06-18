@@ -1,0 +1,120 @@
+{% extends "user_base.html" %}
+
+{% block title %}
+RAC CONTACT
+{% endblock %}
+
+{% block mymessage %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 50px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: red;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            overflow-x: auto;
+            display: block;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            table {
+                font-size: 10px;
+            }
+
+            th, td {
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+<body>
+    <h1>Data Overview</h1>
+
+    {% for key, values in data.items %}
+    <h3>{{ key|title }}</h3>
+    <table>
+        <thead>
+            <tr>
+                {% if values %}
+                    {% for field in values.0.keys %}
+                    <th>{{ field|title }}</th>
+                    {% endfor %}
+                {% else %}
+                    <th>No Data</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in values %}
+            <tr>
+                {% for field in value.values %}
+                <td>{{ field }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    {% endfor %}
+</body>
+{% endblock %}

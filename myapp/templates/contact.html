@@ -1,0 +1,200 @@
+{% extends "user_base.html" %}
+
+{% block title %}
+RAC CONTACT
+{% endblock %}
+
+{% block mymessage %}
+<style>
+        /* General Styling */
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f9f9f9; /* Light background */
+            color: #333;
+        }
+
+        .header-div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .title-bar {
+            text-align: center;
+            color: #ffffff;
+            background-color: #333;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Contact Division */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .contact-form {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contact-form label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0078d7;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .contact-form button:hover {
+            background-color: #005bb5;
+        }
+
+        .home-button {
+            background-color: #555;
+        }
+
+        .home-button:hover {
+            background-color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .contact-form {
+                padding: 15px;
+            }
+
+            .contact-form h3 {
+                font-size: 18px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 14px;
+            }
+        }
+
+        h3, #languageSelector{
+        display: inline-block;
+    }
+
+    #languageSelector{
+        float: right;
+        font-size: 20px;
+    }
+    option{
+        background-color: black;
+        color: white;
+    }
+    </style>
+
+<body>
+    
+    <div class="contact-container">
+        <form class="contact-form" method="POST">
+            {% csrf_token %}
+            <h3>Contact Us</h3>
+            {% if success %}
+            <p style="color: green;">Your query has been submitted successfully!</p>
+            {% endif %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        
+            <label for="contact">Contact:</label>
+            <input type="text" id="contact" name="contact" placeholder="Enter your contact number" required>
+        
+            <label for="query">Query:</label>
+            <textarea id="query" name="query" placeholder="Enter your query" rows="4" required></textarea>
+        
+            <button type="submit">Submit</button>
+            <button type="button" class="home-button" onclick="location.href='{% url 'login' %}'">Home</button>
+        </form>        
+    </div>
+    <script>
+        // Function to fetch and apply translation
+        function translatePage(targetLanguage) {
+          // Get all elements in the document that contain text
+          const elements = document.body.getElementsByTagName('*');
+          
+          // Create an array to store the text content of each element
+          const elementsToTranslate = [];
+    
+          // Loop through all elements and capture their text content
+          Array.from(elements).forEach(element => {
+            // Skip translation for the select element with id 'languageSelector'
+            if (element.id !== 'languageSelector' && element.children.length === 0 && element.textContent.trim() !== '') {
+              elementsToTranslate.push(element);
+            }
+          });
+    
+          // Iterate through each element and translate its text
+          elementsToTranslate.forEach(element => {
+            const originalText = element.textContent.trim();
+            
+            // Fetch translation from Google Translate API
+            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(originalText)}`)
+              .then(response => response.json())
+              .then(data => {
+                // Update the element's text with the translated text
+                element.textContent = data[0][0][0];
+              })
+              .catch(err => console.error('Translation error:', err));
+          });
+        }
+    
+        // Initialize the page with the default language (English)
+        document.addEventListener('DOMContentLoaded', () => {
+          translatePage('en');
+        });
+      </script>
+    
+{% endblock %}
+</body>
+
+</html>

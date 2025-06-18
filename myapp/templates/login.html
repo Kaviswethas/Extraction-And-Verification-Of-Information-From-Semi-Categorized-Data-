@@ -1,0 +1,208 @@
+{% extends "user_base.html" %}
+
+{% block title %}
+RAC LOGIN
+{% endblock %}
+
+{% block mymessage %}
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4; /* Light background for the page */
+    }
+
+    .login-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 2%;
+        gap: 20px;
+        background-color: #f4f4f4; /* Page background */
+    }
+
+    .about-rac {
+        flex: 1 1 60%;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-div {
+        flex: 1 1 30%;
+        padding: 20px;
+        background-color: #002f5e; /* Dark blue background for login */
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        color: white;
+    }
+
+    .login-div h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ffffff;
+    }
+
+    .form-div {
+        width: 100%;
+    }
+
+    .form-div-fields {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .form-div-fields label {
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #ffffff;
+        display: block;
+    }
+
+    .form-div-fields input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-div-fields button {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+        background-color: rgb(0, 170, 255);
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+
+    .form-div-fields button:hover {
+        background-color: rgb(0, 140, 220);
+    }
+
+    .form-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .form-links a {
+        text-decoration: none;
+        color: rgb(0, 170, 255);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .form-links a:hover {
+        text-decoration: underline;
+    }
+
+    .forgot-password-btn button {
+        background: none;
+        border: none;
+        color: rgb(0, 170, 255);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .forgot-password-btn button:hover {
+        color: rgb(0, 140, 220);
+    }
+
+    .wt{
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .login-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-rac {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-div-fields button,
+        .form-div-fields input {
+            max-width: 100%;
+        }
+
+        .login-div {
+            width: 90%;
+        }
+    }
+</style>
+
+<div class="login-container">
+    <!-- About RAC Section -->
+    <div class="about-rac">
+        <h1>RAC</h1>
+        <p>
+            The Recruitment and Assessment Centre (RAC) is a corporate body under the Defence Research and Development Organisation
+            (DRDO), part of the Ministry of Defence, Government of India.
+        </p>
+        <p>
+            RAC is responsible for recruitment, assessment, and training of scientists for DRDO and its allied agencies, such as the
+            Aeronautical Development Agency (ADA). RAC manages selection processes for middle and senior-grade scientists.
+        </p>
+    </div>
+
+    <!-- Login Section -->
+    <div class="login-div">
+        <h1>Candidate Login</h1>
+
+        <!-- Display Django Messages -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="{% if message.tags %}{{ message.tags }}{% endif %}-msg">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Login Form -->
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-div">
+                <!-- Email Field -->
+                <div class="form-div-fields">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Enter your email..." required>
+                </div>
+                <!-- Password Field -->
+                <div class="form-div-fields">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="Enter your password..." required>
+                </div>
+                <!-- Login Button -->
+                <div class="form-div-fields">
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+
+            <!-- Links for Forgot Password and Register -->
+            <div class="form-links">
+                <div class="forgot-password-btn">
+                    <button type="submit" name="forgot-password" value="true"><span class="wt">Forgot Password?</span></button>
+                </div>
+                <a href="{% url 'register' %}"><span class="wt">Click here to Register </span>&#128072;</a>
+                <a href="{% url 'contact' %}" ><span class="wt">Contact here</span></a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "user_base.html" %}
+
+{% block title %}
+RAC USER DASHBOARD
+{% endblock %}
+
+{% block mymessage %}
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+    }
+
+    h1 {
+        padding: 2%;
+        color: #333;
+    }
+
+    .header-div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-bottom: 2px solid #003366;
+    }
+
+    .left-group img,
+    .right img,
+    .center img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .title-bar {
+        text-align: center;
+        background-color: black;
+        color: white;
+        padding: 10px;
+    }
+
+    .applications-div {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columns */
+        gap: 20px;
+        margin: 20px;
+    }
+
+    .application {
+        border: 1px solid rgb(0, 140, 220);
+        border-radius: 5mm;
+        padding: 20px;
+        background-color: white;
+        transition: transform 0.3s ease;
+        text-align: center;
+    }
+
+    .application:hover {
+        transform: translateY(-5px); /* Hover effect */
+    }
+
+    .application h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .application p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .application a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .application a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive design */
+    @media (max-width: 1200px) {
+        .applications-div {
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .applications-div {
+            grid-template-columns: 1fr; /* 1 column on small screens */
+        }
+
+        .header-div {
+            flex-direction: column; /* Stack header content vertically on small screens */
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-bar {
+            font-size: 1.5rem; /* Adjust title font size for smaller screens */
+        }
+
+        .header-div .left-group,
+        .header-div .center,
+        .header-div .right {
+            flex: 1;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header-div img {
+            max-width: 80%; /* Adjust images for smaller screens */
+        }
+    }
+    h3, #languageSelector{
+        display: inline-block;
+    }
+
+    #languageSelector{
+        float: right;
+        font-size: 20px;
+    }
+    option{
+        background-color: black;
+        color: white;
+    }
+
+    .ld button{
+        font-size: 25px;
+        font-weight: bold;
+        background-color: rgb(244, 75, 75);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 2mm;
+        border: none;    
+        cursor: pointer;    
+    }
+    .ld{
+        padding: 2%;
+        margin-left: 89%;
+    }
+</style>
+
+<body>
+    <br>
+    <div>
+        <!-- <h1>Welcome {{Username}}</h1>     -->
+        <div>
+            <a class="ld" href="{% url 'user_logout' %}">
+                <button>Logout</button>
+            </a>
+        </div>
+        </div>
+    <!-- <h2>{{user_name}}, {{user_mail}}</h2> -->
+
+    <div class="applications-div">
+        <div class="application">
+            <h2>Application for Scientist-A</h2>
+            <p>This is the application released for the position of Scientist-A from RAC, DRDO. </p>
+            <p>Click the below link for the application</p>
+            <p><a href="{% url 'index' %}">Click here</a></p>
+        </div>
+        <div class="application">
+            <h2>Application for Scientist-B</h2>
+            <p>This is the application released for the position of Scientist-B from RAC, DRDO. </p>
+            <p>Click the below link for the application</p>
+            <p><a href="{% url 'index' %}">Click here</a></p>
+        </div>
+        <div class="application">
+            <h2>Application for Scientist-C</h2>
+            <p>This is the application released for the position of Scientist-C from RAC, DRDO. </p>
+            <p>Click the below link for the application</p>
+            <p><a href="{% url 'index' %}">Click here</a></p>
+        </div>
+    </div>
+
+</body>
+
+{% endblock %}
